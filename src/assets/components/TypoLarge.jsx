@@ -1,8 +1,8 @@
 import React from 'react'
 
-const TypoLarge = () => {
+const TypoLarge = ({boktitle}) => {
   return (
-    <div>TypoLarge</div>
+    <h2>{boktitle}</h2>
   )
 }
 
