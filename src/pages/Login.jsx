@@ -5,7 +5,7 @@ import image1 from '../assets/image1.jpg';
 import google2 from '../assets/google2.png';
 import fb2 from '../assets/fb2.png';
 import TypoLarge from '../assets/components/TypoLarge';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate, Link } from 'react-router-dom';
 
 let bokInitialValues = {
@@ -17,6 +17,7 @@ let bokInitialValues = {
 const Login = () => {
 
   const auth = getAuth();
+  const provider = new GoogleAuthProvider();
   let bokNavigate = useNavigate();
   let [bokValues, setBokValues] = useState(bokInitialValues);
 
@@ -45,6 +46,10 @@ const Login = () => {
     })
   }
 
+  let handleGooglePopupLogin = () => {
+    signInWithPopup(auth, provider).then((result)=>{console.log(result);})
+  }
+
 
   return (
     <>
@@ -55,10 +60,10 @@ const Login = () => {
               <TypoLarge boktitle="Easy Login To Your Account"/>
             </Box>
             <Box sx={{width:'70%', display:'flex', m:'auto', pb:'30px'}}>
-              <img className="socialLogin" src={google2} />
+              <img onClick={handleGooglePopupLogin} className="socialLogin" src={google2} />
               <img className="socialLogin" src={fb2} />
             </Box>
-            <Stack spacing={5} sx={{width:'70%', m:'auto'}}>
+            <Stack spacing={3} sx={{width:'70%', m:'auto'}}>
               <TextField onChange={handleBokBokValues} value ={bokValues.email} name="email" label="Email Address" variant="outlined" color='warning' />
               <TextField  onChange={handleBokBokValues} value ={bokValues.password} name="password" label="Password" type='password' variant="outlined" color='warning' />
               {bokValues.loading ?

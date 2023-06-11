@@ -52,7 +52,7 @@ const Registration = () => {
               <TypoLarge  boktitle="Get Started With Easy Register"/>
               <p>Free Registration And You Will Really Enjoy It !</p>
             </Stack>
-            <Stack spacing={5} sx={{ width:'70%', m:'auto'}}>
+            <Stack spacing={3} sx={{ width:'70%', m:'auto'}}>
               <TextField onChange={handleBokBokValues} value ={bokValues.email} name="email" label="Email Address" variant="outlined" color='warning' />
               <TextField onChange={handleBokBokValues} value ={bokValues.fullName} name="fullName" label="Full Name" variant="outlined" color='warning' />
               <TextField onChange={handleBokBokValues} value ={bokValues.password} name="password" label="Password" type='password' variant="outlined" color='warning' />
