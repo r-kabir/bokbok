@@ -3,7 +3,7 @@ import { useState } from 'react';
 import {Button, Box, Stack, Container, Paper, TextField, CircularProgress, Alert} from '@mui/material';
 import image2 from '../assets/image2.jpg';
 import TypoLarge from '../assets/components/TypoLarge';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { useNavigate, Link } from 'react-router-dom';
 
 let bokInitialValues = {
@@ -32,14 +32,16 @@ const Registration = () => {
         ...bokValues,
         loading : true
       })
-      createUserWithEmailAndPassword(auth, email, password).then((bokuser)=>{
+    createUserWithEmailAndPassword(auth, email, password).then((bokuser)=>{
+      console.log(bokuser);
+      sendEmailVerification(auth.currentUser).then(() => {console.log('verify email sent');});
       setBokValues({
         email:"",
         fullName:"",
         password:"",
         loading : false
-      })
-      bokNavigate("/login")
+      });
+      bokNavigate("/login");
     })
   }
 
