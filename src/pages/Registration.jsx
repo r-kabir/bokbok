@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react';
 import {Button, Box, Stack, Container, Paper, TextField, CircularProgress, Alert} from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import image2 from '../assets/image2.jpg';
 import TypoLarge from '../assets/components/TypoLarge';
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
@@ -10,7 +12,9 @@ let bokInitialValues = {
   email:"",
   fullName:"",
   password:"",
-  loading:false
+  loading:false,
+  inputError:"",
+  showPass:false
 }
 
 const Registration = () => {
@@ -27,11 +31,30 @@ const Registration = () => {
   }
 
   let handleSubmit = () => {
-    let {email, fullName, password} = bokValues
+    let {email, fullName, password} = bokValues;
+
+    if(!email){
       setBokValues({
-        ...bokValues,
-        loading : true
+        ...bokValues, inputError:"Please Enter Your Email"
       })
+      return;
+    }
+    if(!fullName){
+      setBokValues({
+        ...bokValues, inputError:"Please Enter Your Full Name" 
+      })
+      return;
+    }
+    if(!password){
+      setBokValues({
+        ...bokValues, inputError:"Please Enter Your Password" 
+      })
+      return;
+    }
+    setBokValues({
+      ...bokValues,
+      loading : true
+    })
     createUserWithEmailAndPassword(auth, email, password).then((bokuser)=>{
       console.log(bokuser);
       sendEmailVerification(auth.currentUser).then(() => {console.log('verify email sent');});
@@ -45,35 +68,45 @@ const Registration = () => {
     })
   }
 
-  return (
-    <>
-      <Container maxWidth="md" sx={{}} >
-        <Paper elevation={16} sx={{ display:'flex', m:'10vh', p:'8px', backgroundColor:'azure'}}>
-          <Box sx={{ width:"60%", p:'2vh'}}>
-            <Stack spacing={1} sx={{width:'70%', m:'auto', pb:'30px'}}>
-              <TypoLarge  boktitle="Get Started With Easy Register"/>
-              <p>Free Registration And You Will Really Enjoy It !</p>
-            </Stack>
-            <Stack spacing={3} sx={{ width:'70%', m:'auto'}}>
-              <TextField onChange={handleBokBokValues} value ={bokValues.email} name="email" label="Email Address" variant="outlined" color='warning' />
-              <TextField onChange={handleBokBokValues} value ={bokValues.fullName} name="fullName" label="Full Name" variant="outlined" color='warning' />
-              <TextField onChange={handleBokBokValues} value ={bokValues.password} name="password" label="Password" type='password' variant="outlined" color='warning' />
-              {bokValues.loading ?
-                <CircularProgress color="warning" />
-                :
-                <Button onClick={handleSubmit} variant="contained" color='warning' sx={{width:"50%"}}>Sign Up</Button>
+  return (  
+    <Container maxWidth="md" >
+      <Paper elevation={16} sx={{ display:'flex', m:'10vh', p:'8px', backgroundColor:'azure'}}>
+        <Box sx={{ width:"60%", p:'2vh'}}>
+          <Box sx={{width:'80%', m:'auto', pb:'25px'}}>
+            <TypoLarge  boktitle="Get Started With Easy Register"/>
+            <p>Free Registration And You Will Really Enjoy It !</p>
+          </Box>
+          <Stack spacing={2} sx={{ width:'70%', m:'auto'}}>
+            <TextField onChange={handleBokBokValues} value ={bokValues.email} name="email" label="Email Address" variant="outlined" color='warning' />
+            {bokValues.inputError.includes("Email") && <Alert variant="filled" severity="error" sx={{ py:"0px"}}>{bokValues.inputError}</Alert>}
+            <TextField onChange={handleBokBokValues} value ={bokValues.fullName} name="fullName" label="Full Name" variant="outlined" color='warning' />
+            {bokValues.inputError.includes("Full Name") && <Alert variant="outlined" severity="error" sx={{ py:"0"}}>{bokValues.inputError}</Alert>}
+            <Box sx={{ display: 'flex', alignItems: 'center'}}>
+              <TextField sx={{width:"100%"}} onChange={handleBokBokValues} value ={bokValues.password} name="password" label="Password" type={bokValues.showPass ? 'password' : 'text'} variant="outlined" color='warning' />
+              <Box sx={{mx:"-15%", zIndex:"9999999"}} onClick={()=>setBokValues({...bokValues, showPass:!bokValues.showPass }) }>
+              {bokValues.showPass ? 
+                  <VisibilityIcon  sx={{  color: 'orange'}}/>
+                : 
+                  <VisibilityOffIcon  sx={{  color: 'orange'}}/>
               }
-              <Alert variant="outlined" severity="warning">
-                Already Have an Account?<strong><Link to='/login'> Login</Link></strong>
-              </Alert>
-            </Stack>
-          </Box>
-          <Box sx={{ width:"40%"}}>
-            <img className="regimage" src={image2} />
-          </Box>
-        </Paper>
-      </Container>
-    </>
+              </Box>                                
+            </Box>
+            {bokValues.inputError.includes("Password") && <Alert variant='filled' severity="error" sx={{ py:"0"}}>{bokValues.inputError}</Alert>}
+            {bokValues.loading ?
+              <CircularProgress color="warning" />
+              :
+              <Button onClick={handleSubmit} variant="contained" color='warning' sx={{width:"50%"}}>Sign Up</Button>
+            }
+            <Alert variant="outlined" severity="warning">
+              Already Have an Account?<strong><Link to='/login'> Login</Link></strong>
+            </Alert>
+          </Stack>
+        </Box>
+        <Box sx={{ width:"40%"}}>
+          <img className="regimage" src={image2} />
+        </Box>
+      </Paper>
+    </Container> 
   )
 }
 
