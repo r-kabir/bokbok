@@ -5,7 +5,24 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 const DialogModalForgotPassword = () => {
     let [dialogModalOpen, setDialogModalOpen] = useState(false)
+    let [emailAddress, setEmailAddress] = useState("")
     const auth = getAuth();
+
+    let handlePasswordResetEmail = () => {
+      let email = emailAddress;
+      console.log(email);
+      sendPasswordResetEmail(auth, email)
+      .then(() => {
+        // Password reset email sent!
+        
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+      });
+    }
 
   return (
     <Box>
@@ -15,8 +32,8 @@ const DialogModalForgotPassword = () => {
         <DialogContent>
           <Stack gap={3}>
             <h2>Enter Your Email to Reset Password</h2>
-            <TextField fullWidth variant='outlined' color='warning' label="Reset Password By Email" />
-            <Button variant="contained" color='warning' sx={{width:"50%"}}>Send Reset Email</Button>
+            <TextField onChange={(e)=>setEmailAddress(e.target.value)} fullWidth variant='outlined' color='warning' label="Reset Password By Email" />
+            <Button onClick={handlePasswordResetEmail} variant="contained" color='warning' sx={{width:"50%"}}>Send Reset Email</Button>
           </Stack>
         </DialogContent>
       </Dialog>

@@ -35,7 +35,7 @@ const Login = () => {
   }
 
   let handleSubmit = () => {
-    let {email, fullName, password} = bokValues
+    let {email, password} = bokValues
       setBokValues({
         ...bokValues,
         loading : true
