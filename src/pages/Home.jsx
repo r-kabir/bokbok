@@ -1,8 +1,11 @@
 import React from 'react'
+import SignOut from '../assets/components/SignOut'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+        <SignOut />
+    </div>
   )
 }
 

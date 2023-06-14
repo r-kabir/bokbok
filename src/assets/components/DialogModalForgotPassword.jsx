@@ -1,9 +1,11 @@
 import { Dialog, DialogContent, DialogTitle, TextField, Button, Box, Stack } from '@mui/material'
 import React from 'react'
 import { useState } from 'react'
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 const DialogModalForgotPassword = () => {
     let [dialogModalOpen, setDialogModalOpen] = useState(false)
+    const auth = getAuth();
 
   return (
     <Box>

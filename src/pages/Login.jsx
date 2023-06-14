@@ -47,8 +47,13 @@ const Login = () => {
         loading : false
       })
       console.log(bokuser);
-      bokNavigate("/")
-    })
+      bokNavigate("/home")
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode);
+      console.log(errorMessage);
+    });
   }
 
   let handleGooglePopupLogin = () => {

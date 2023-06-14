@@ -65,7 +65,12 @@ const Registration = () => {
         loading : false
       });
       bokNavigate("/login");
-    })
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode);
+      console.log(errorMessage);
+    });
   }
 
   return (  
