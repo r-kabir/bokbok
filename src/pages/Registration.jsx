@@ -102,7 +102,7 @@ const Registration = () => {
               :
               <Button onClick={handleSubmit} variant="contained" color='warning' sx={{width:"50%"}}>Sign Up</Button>
             }
-            <Alert variant="outlined" severity="warning">
+            <Alert sx={{py:0, px:0}}>
               Already Have an Account?<strong><Link to='/login'> Login</Link></strong>
             </Alert>
           </Stack>

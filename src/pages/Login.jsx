@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import {Button, Box, Stack, Container, Paper, TextField, CircularProgress, Alert, Dialog, DialogTitle} from '@mui/material';
+import {Button, Box, Stack, Container, Paper, TextField, CircularProgress, Alert} from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import image1 from '../assets/image1.jpg';
@@ -23,9 +23,7 @@ const Login = () => {
   const provider = new GoogleAuthProvider();
   let bokNavigate = useNavigate();
   let [bokValues, setBokValues] = useState(bokInitialValues);
-
-  let [openDial, setOpenDial] = useState(false);
-
+  let [firebaseError, setFirebaseError] = useState("");
 
   let handleBokBokValues = (e) => {
     setBokValues({
@@ -36,23 +34,45 @@ const Login = () => {
 
   let handleSubmit = () => {
     let {email, password} = bokValues
-      setBokValues({
-        ...bokValues,
-        loading : true
-      })
-      signInWithEmailAndPassword(auth, email, password).then((bokuser)=>{
+    setBokValues({
+      ...bokValues,
+      loading : true
+    })
+    signInWithEmailAndPassword(auth, email, password).then((bokuser)=>{
       setBokValues({
         email:"",
         password:"",
         loading : false
       })
       console.log(bokuser);
-      bokNavigate("/home")
+      if(bokuser.user.emailVerified)
+        {bokNavigate("/home")}
+      else{
+        setFirebaseError("Please Verifiy Your Email Address")
+        setBokValues({
+        ...bokValues,
+        password:"",
+        loading: false
+        })
+      };
     }).catch((error) => {
       const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode);
-      console.log(errorMessage);
+
+      if(errorCode == "auth/wrong-password"){
+        setBokValues({
+        ...bokValues,
+        password:"",
+        loading: false
+        })
+      }else{
+        setBokValues({
+        ...bokValues,
+        email:"",
+        password:"",
+        loading:false
+      })
+      }  
+      setFirebaseError(errorCode);
     });
   }
 
@@ -65,22 +85,25 @@ const Login = () => {
     <Container maxWidth="md" sx={{}}>
       <Paper elevation={16} sx={{ display:'flex', m:'10vh', p:'8px', backgroundColor:'azure'}}>
         <Box sx={{ width:"60%", p:"2vh"}}>
-          <Box sx={{width:'70%', m:'auto'}}>
+          <Box sx={{width:'80%', mx:'auto', py:"15px"}}>
             <TypoLarge boktitle="Easy Login To Your Account"/>
           </Box>
-          <Box sx={{width:'70%', display:'flex', m:'auto', pb:'30px'}}>
+          <Box sx={{width:'70%', display:'flex', mx:'auto', pb:'15px'}}>
             <img onClick={handleGooglePopupLogin} className="socialLogin" src={google2} />
             <img className="socialLogin" src={fb2} />
           </Box>
-          <Stack spacing={3} sx={{width:'70%', m:'auto'}}>
+          <Stack spacing={2} sx={{width:'70%', mx:'auto'}}>
             <TextField onChange={handleBokBokValues} value ={bokValues.email} name="email" label="Email Address" variant="outlined" color='warning' />
+            {firebaseError.includes("auth/user-not-found") && <Alert variant="outlined" severity="error" sx={{ py:0, width:"80%"}}>!!You Are Not Registered Yet!!</Alert>}
             <TextField  onChange={handleBokBokValues} value ={bokValues.password} name="password" label="Password" type='password' variant="outlined" color='warning' />
+            {firebaseError.includes("auth/wrong-password") && <Alert variant="outlined" severity="error" sx={{ py:0, width:"80%"}}>!!Wrong Password!!</Alert>}
+            {firebaseError.includes("Verifiy Your Email") && <Alert variant='outlined' severity='error' sx={{py:0, width:"80%"}}>{firebaseError}</Alert>}
             {bokValues.loading ?
               <CircularProgress color="warning" />
               :
-              <Button onClick={handleSubmit} variant="contained" color='warning' sx={{}}>Login To Continue</Button>
+              <Button onClick={handleSubmit} variant="contained" color='warning'>Login To Continue</Button>
             }
-            <Alert variant="outlined" severity="warning" sx={{py:0}}>
+            <Alert sx={{py:0, px:0}}>
               Don't Have an Account?<strong><Link to='/'> Register Here</Link></strong>
             </Alert>
             <DialogModalForgotPassword />

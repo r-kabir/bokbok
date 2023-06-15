@@ -9,11 +9,10 @@ const DialogModalForgotPassword = () => {
     const auth = getAuth();
 
     let handlePasswordResetEmail = () => {
-      let email = emailAddress;
-      console.log(email);
-      sendPasswordResetEmail(auth, email)
+      sendPasswordResetEmail(auth, emailAddress)
       .then(() => {
-        // Password reset email sent!
+        console.log(emailAddress);
+        setDialogModalOpen(false)
         
       })
       .catch((error) => {
@@ -26,7 +25,7 @@ const DialogModalForgotPassword = () => {
 
   return (
     <Box>
-      <Button onClick={()=>setDialogModalOpen(!dialogModalOpen)} variant='outlined' size='small' color='error'>Forgot Password?</Button>
+      <Button onClick={()=>setDialogModalOpen(!dialogModalOpen)} sx={{px:1, py:0, mx:"20%"}} variant='outlined' size='small' color='error'>Forgot Password?</Button>
       <Dialog open={dialogModalOpen} onClose={()=>setDialogModalOpen(!dialogModalOpen)}>
         <DialogTitle>Forgot Your Password? Recover It!</DialogTitle>
         <DialogContent>
