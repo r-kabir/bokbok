@@ -4,7 +4,7 @@ import {Button, Box, Stack, Container, Paper, TextField, CircularProgress, Alert
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import image2 from '../assets/image2.jpg';
-import TypoLarge from '../assets/components/TypoLarge';
+import TypoLarge from '../components/TypoLarge';
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { useNavigate, Link } from 'react-router-dom';
 

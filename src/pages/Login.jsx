@@ -6,10 +6,11 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import image1 from '../assets/image1.jpg';
 import google2 from '../assets/google2.png';
 import fb2 from '../assets/fb2.png';
-import TypoLarge from '../assets/components/TypoLarge';
+import TypoLarge from '../components/TypoLarge';
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate, Link } from 'react-router-dom';
-import DialogModalForgotPassword from '../assets/components/DialogModalForgotPassword';
+import DialogModalForgotPassword from '../components/DialogModalForgotPassword';
+import { toast } from 'react-toastify';
 
 let bokInitialValues = {
   email:"",
@@ -18,6 +19,8 @@ let bokInitialValues = {
 }
 
 const Login = () => {
+
+  const notify = (boknotify) => toast.error(boknotify);
 
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
@@ -44,11 +47,10 @@ const Login = () => {
         password:"",
         loading : false
       })
-      console.log(bokuser);
       if(bokuser.user.emailVerified)
-        {bokNavigate("/home")}
+        {bokNavigate("/bokbok/home")}
       else{
-        setFirebaseError("Please Verifiy Your Email Address")
+        notify("Please Verifiy Your Email Address")
         setBokValues({
         ...bokValues,
         password:"",
@@ -57,22 +59,38 @@ const Login = () => {
       };
     }).catch((error) => {
       const errorCode = error.code;
+      // notify(errorCode);
 
-      if(errorCode == "auth/wrong-password"){
+      if(errorCode.includes("auth/wrong-password")){
         setBokValues({
         ...bokValues,
         password:"",
         loading: false
         })
-      }else{
+        notify("!!Wrong Password!!")
+        return
+      }
+      if(errorCode.includes("auth/user-not-found")){
         setBokValues({
         ...bokValues,
         email:"",
         password:"",
+        loading: false
+        })
+        notify("!!You Are Not Registered Yet!!")
+        return
+      }
+      else{
+        setBokValues({
+        ...setBokValues,
+        email:"",
+        password:"",
         loading:false
-      })
+        })
+        notify("Please Fill All The Fields")
+        return
       }  
-      setFirebaseError(errorCode);
+      // setFirebaseError(errorCode);
     });
   }
 
@@ -85,7 +103,7 @@ const Login = () => {
     <Container maxWidth="md" sx={{}}>
       <Paper elevation={16} sx={{ display:'flex', m:'10vh', p:'8px', backgroundColor:'azure'}}>
         <Box sx={{ width:"60%", p:"2vh"}}>
-          <Box sx={{width:'80%', mx:'auto', py:"15px"}}>
+          <Box sx={{width:'80%', mx:'auto', pt:"15px"}}>
             <TypoLarge boktitle="Easy Login To Your Account"/>
           </Box>
           <Box sx={{width:'70%', display:'flex', mx:'auto', pb:'15px'}}>
@@ -103,6 +121,7 @@ const Login = () => {
               :
               <Button onClick={handleSubmit} variant="contained" color='warning'>Login To Continue</Button>
             }
+            {/* <Button onClick={notify}>Notify!</Button> */}
             <Alert sx={{py:0, px:0}}>
               Don't Have an Account?<strong><Link to='/'> Register Here</Link></strong>
             </Alert>

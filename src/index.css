@@ -22,3 +22,8 @@
     object-fit: contain;
     cursor: pointer;
 }
+.tapos{
+    width:5vh;
+    height:5vh;
+    border-radius: 50%;
+}
