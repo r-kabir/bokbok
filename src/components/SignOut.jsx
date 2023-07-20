@@ -2,6 +2,7 @@ import React from 'react'
 import { getAuth, signOut } from "firebase/auth";
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { Logout } from '@mui/icons-material';
 
 const SignOut = () => {
     const auth = getAuth();
@@ -20,7 +21,7 @@ const SignOut = () => {
 
   return (
     <div>
-        <Button onClick={handleSignOut} variant="contained" color='warning'>Sign Out</Button>
+        <Button color='inherit' variant='contained' onClick={handleSignOut}><Logout/></Button>
     </div>
   )
 }

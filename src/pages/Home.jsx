@@ -10,7 +10,7 @@ import BlockList from '../components/BlockList'
 const Home = () => {
   return (
   <Box sx={{flexGrow:1}}>
-    <Grid container spacing={4} sx={{p:"16px"}}>
+    <Grid container spacing={3} sx={{p:"8px"}}>
       <Grid item xs={12} md={4}><GroupList /></Grid>
       <Grid item xs={12} md={4}><FriendList /></Grid>
       <Grid item xs={12} md={4}><AllUser /></Grid>
