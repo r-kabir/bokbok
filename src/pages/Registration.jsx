@@ -6,6 +6,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import image2 from '../assets/image2.jpg';
 import TypoLarge from '../components/TypoLarge';
 import { getAuth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
+import { getDatabase, ref, set, push } from "firebase/database";
 import { useNavigate, Link } from 'react-router-dom';
 
 let bokInitialValues = {
@@ -20,6 +21,7 @@ let bokInitialValues = {
 const Registration = () => {
 
   const auth = getAuth();
+  const db = getDatabase();
   let bokNavigate = useNavigate();
   let [bokValues, setBokValues] = useState(bokInitialValues);
 
@@ -60,7 +62,15 @@ const Registration = () => {
       updateProfile(auth.currentUser, {
         displayName: bokValues.fullName, photoURL: "https://i.ibb.co/QFNMgyM/default-image.png"
       }).then(() => {
-        sendEmailVerification(auth.currentUser).then(() => {console.log('verify email sent'); console.log(bokuser);});
+        sendEmailVerification(auth.currentUser).then(() => {
+          console.log('verify email sent');
+          console.log(bokuser);
+          set(ref(db, 'bokbokUsers/'+bokuser.user.uid), {
+            username: bokValues.fullName,
+            email: bokValues.email,
+            profile_picture : bokuser.user.photoURL
+          });
+        });
       })
       setBokValues({
         email:"",
