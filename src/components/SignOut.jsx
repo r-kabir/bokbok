@@ -7,7 +7,6 @@ import { Logout } from '@mui/icons-material';
 const SignOut = () => {
     const auth = getAuth();
     let bokNavigate = useNavigate();
-
     let handleSignOut =() => {
         signOut(auth).then(() => {
             bokNavigate('/login')

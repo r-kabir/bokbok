@@ -10,32 +10,7 @@ const BlockList = () => {
         <Box sx={{display:"flex", alignItems:"center", justifyContent:"space-between",borderBottom:"1px solid red", p:"10px"}}>
             <img className="tapos" src={tapos} />
             <Box><h4>Tapos Kabir</h4><p>ghjgfjfhkgk hkhggkgkk</p></Box>
-            <Button size='small' variant='contained'>Unblock</Button>
-        </Box>
-        <Box sx={{display:"flex", alignItems:"center", justifyContent:"space-between", borderBottom:"1px solid red", p:"10px"}}>
-            <img className="tapos" src={tapos} />
-            <Box><h4>Tapos Kabir</h4><p>ghjgfjfhkgk hkhggkgkk</p></Box>
-            <Button size='small' variant='contained'>Unblock</Button>
-        </Box>
-        <Box sx={{display:"flex", alignItems:"center", justifyContent:"space-between", borderBottom:"1px solid red", p:"10px"}}>
-            <img className="tapos" src={tapos} />
-            <Box><h4>Tapos Kabir</h4><p>ghjgfjfhkgk hkhggkgkk</p></Box>
-            <Button size='small' variant='contained'>Unblock</Button>
-        </Box>
-        <Box sx={{display:"flex", alignItems:"center", justifyContent:"space-between", borderBottom:"1px solid red", p:"10px"}}>
-            <img className="tapos" src={tapos} />
-            <Box><h4>Tapos Kabir</h4><p>ghjgfjfhkgk hkhggkgkk</p></Box>
-            <Button size='small' variant='contained'>Unblock</Button>
-        </Box>
-        <Box sx={{display:"flex", alignItems:"center", justifyContent:"space-between", borderBottom:"1px solid red", p:"10px"}}>
-            <img className="tapos" src={tapos} />
-            <Box><h4>Tapos Kabir</h4><p>ghjgfjfhkgk hkhggkgkk</p></Box>
-            <Button size='small' variant='contained'>Unblock</Button>
-        </Box>
-        <Box sx={{display:"flex", alignItems:"center", justifyContent:"space-between",borderBottom:"1px solid red", p:"10px"}}>
-            <img className="tapos" src={tapos} />
-            <Box><h4>Tapos Kabir</h4><p>ghjgfjfhkgk hkhggkgkk</p></Box>
-            <Button size='small' variant='contained'>Unblock</Button>
+            <Button size='small' variant='contained' color='error'>Unblock</Button>
         </Box>
     </Box>
   )

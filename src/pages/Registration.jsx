@@ -6,7 +6,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import image2 from '../assets/image2.jpg';
 import TypoLarge from '../components/TypoLarge';
 import { getAuth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
-import { getDatabase, ref, set, push } from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 import { useNavigate, Link } from 'react-router-dom';
 
 let bokInitialValues = {

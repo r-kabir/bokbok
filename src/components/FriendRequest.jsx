@@ -9,32 +9,7 @@ const FriendRequest = () => {
         <Box sx={{display:"flex", alignItems:"center", justifyContent:"space-between",borderBottom:"1px solid red", p:"10px"}}>
             <img className="tapos" src={tapos} />
             <Box><h4>Tapos Kabir</h4><p>ghjgfjfhkgk hkhggkgkk</p></Box>
-            <Button size='small' variant='contained'>Accept</Button>
-        </Box>
-        <Box sx={{display:"flex", alignItems:"center", justifyContent:"space-between", borderBottom:"1px solid red", p:"10px"}}>
-            <img className="tapos" src={tapos} />
-            <Box><h4>Tapos Kabir</h4><p>ghjgfjfhkgk hkhggkgkk</p></Box>
-            <Button size='small' variant='contained'>Accept</Button>
-        </Box>
-        <Box sx={{display:"flex", alignItems:"center", justifyContent:"space-between", borderBottom:"1px solid red", p:"10px"}}>
-            <img className="tapos" src={tapos} />
-            <Box><h4>Tapos Kabir</h4><p>ghjgfjfhkgk hkhggkgkk</p></Box>
-            <Button size='small' variant='contained'>Accept</Button>
-        </Box>
-        <Box sx={{display:"flex", alignItems:"center", justifyContent:"space-between", borderBottom:"1px solid red", p:"10px"}}>
-            <img className="tapos" src={tapos} />
-            <Box><h4>Tapos Kabir</h4><p>ghjgfjfhkgk hkhggkgkk</p></Box>
-            <Button size='small' variant='contained'>Accept</Button>
-        </Box>
-        <Box sx={{display:"flex", alignItems:"center", justifyContent:"space-between", borderBottom:"1px solid red", p:"10px"}}>
-            <img className="tapos" src={tapos} />
-            <Box><h4>Tapos Kabir</h4><p>ghjgfjfhkgk hkhggkgkk</p></Box>
-            <Button size='small' variant='contained'>Accept</Button>
-        </Box>
-        <Box sx={{display:"flex", alignItems:"center", justifyContent:"space-between",borderBottom:"1px solid red", p:"10px"}}>
-            <img className="tapos" src={tapos} />
-            <Box><h4>Tapos Kabir</h4><p>ghjgfjfhkgk hkhggkgkk</p></Box>
-            <Button size='small' variant='contained'>Accept</Button>
+            <Button size='small' variant='contained' color='error'>Accept</Button>
         </Box>
     </Box>
   )
