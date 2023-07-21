@@ -89,7 +89,7 @@ const Registration = () => {
 
   return (  
     <Container maxWidth="md" >
-      <Paper elevation={16} sx={{ display:'flex', m:'10vh', p:'8px', backgroundColor:'azure'}}>
+      <Paper elevation={12} sx={{ display:'flex', m:'7vh auto',  p:'8px', backgroundColor:'cornsilk'}}>
         <Box sx={{ width:"60%", p:'2vh'}}>
           <Box sx={{width:'80%', m:'auto', pb:'25px'}}>
             <TypoLarge  boktitle="Get Started With Easy Register"/>

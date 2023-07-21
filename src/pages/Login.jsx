@@ -1,16 +1,18 @@
 import React from 'react'
 import { useState } from 'react';
 import {Button, Box, Stack, Container, Paper, TextField, CircularProgress, Alert} from '@mui/material';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+// import VisibilityIcon from '@mui/icons-material/Visibility';
+// import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import image1 from '../assets/image1.jpg';
 import google2 from '../assets/google2.png';
-import fb2 from '../assets/fb2.png';
+// import fb2 from '../assets/fb2.png';
 import TypoLarge from '../components/TypoLarge';
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate, Link } from 'react-router-dom';
 import DialogModalForgotPassword from '../components/DialogModalForgotPassword';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { reduxuserdata } from '../slices/user/userSlice'
 
 let bokInitialValues = {
   email:"",
@@ -27,6 +29,7 @@ const Login = () => {
   let bokNavigate = useNavigate();
   let [bokValues, setBokValues] = useState(bokInitialValues);
   let [firebaseError, setFirebaseError] = useState("");
+  let dispatch = useDispatch();
 
   let handleBokBokValues = (e) => {
     setBokValues({
@@ -48,7 +51,10 @@ const Login = () => {
         loading : false
       })
       if(bokuser.user.emailVerified)
-        {bokNavigate("/bokbok/home")}
+        {
+          dispatch(reduxuserdata(bokuser.user));
+          bokNavigate("/bokbok/home");
+        }
       else{
         notify("Please Verifiy Your Email Address")
         setBokValues({
@@ -100,15 +106,15 @@ const Login = () => {
 
 
   return (
-    <Container maxWidth="md" sx={{}}>
-      <Paper elevation={16} sx={{ display:'flex', m:'10vh', p:'8px', backgroundColor:'azure'}}>
+    <Container maxWidth="md">
+      <Paper elevation={12} sx={{ display:'flex', m:'15vh auto', p:'8px', backgroundColor:'cornsilk'}}>
         <Box sx={{ width:"60%", p:"2vh"}}>
           <Box sx={{width:'80%', mx:'auto', pt:"15px"}}>
             <TypoLarge boktitle="Easy Login To Your Account"/>
           </Box>
           <Box sx={{width:'70%', display:'flex', mx:'auto', pb:'15px'}}>
             <img onClick={handleGooglePopupLogin} className="socialLogin" src={google2} />
-            <img className="socialLogin" src={fb2} />
+            {/* <img className="socialLogin" src={fb2} /> */}
           </Box>
           <Stack spacing={2} sx={{width:'70%', mx:'auto'}}>
             <TextField onChange={handleBokBokValues} value ={bokValues.email} name="email" label="Email Address" variant="outlined" color='warning' />
