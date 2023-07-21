@@ -9,6 +9,7 @@ const SignOut = () => {
     let bokNavigate = useNavigate();
     let handleSignOut =() => {
         signOut(auth).then(() => {
+            localStorage.removeItem("localuserdata")
             bokNavigate('/login')
           }).catch((error) => {
             const errorCode = error.code;

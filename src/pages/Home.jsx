@@ -14,12 +14,6 @@ const Home = () => {
   let currentUser = useSelector((state)=>state.storeduser.value)
   let bokNavigate = useNavigate();
 
-  // useEffect(()=>{
-  //   if (currentUser != null){
-  //     bokNavigate("/bokbok/home");
-  //   }
-  // },[])
-
   useEffect(()=>{
     if (currentUser == null){
       bokNavigate("/login");

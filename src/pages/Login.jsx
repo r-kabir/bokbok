@@ -1,8 +1,8 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {Button, Box, Stack, Container, Paper, TextField, CircularProgress, Alert} from '@mui/material';
-// import VisibilityIcon from '@mui/icons-material/Visibility';
-// import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import image1 from '../assets/image1.jpg';
 import google2 from '../assets/google2.png';
 // import fb2 from '../assets/fb2.png';
@@ -53,6 +53,7 @@ const Login = () => {
       if(bokuser.user.emailVerified)
         {
           dispatch(reduxuserdata(bokuser.user));
+          localStorage.setItem("localuserdata", JSON.stringify(bokuser.user))
           bokNavigate("/bokbok/home");
         }
       else{
@@ -119,7 +120,16 @@ const Login = () => {
           <Stack spacing={2} sx={{width:'70%', mx:'auto'}}>
             <TextField onChange={handleBokBokValues} value ={bokValues.email} name="email" label="Email Address" variant="outlined" color='warning' />
             {firebaseError.includes("auth/user-not-found") && <Alert variant="outlined" severity="error" sx={{ py:0, width:"80%"}}>!!You Are Not Registered Yet!!</Alert>}
-            <TextField  onChange={handleBokBokValues} value ={bokValues.password} name="password" label="Password" type='password' variant="outlined" color='warning' />
+            <Box sx={{ display: 'flex', alignItems: 'center'}}>
+              <TextField sx={{width:"100%"}} onChange={handleBokBokValues} value ={bokValues.password} name="password" label="Password" type={bokValues.showPass ? 'text' : 'password'} variant="outlined" color='warning' />
+              <Box sx={{mx:"-15%", zIndex:"9999999"}} onClick={()=>setBokValues({...bokValues, showPass:!bokValues.showPass }) }>
+              {bokValues.showPass ? 
+                  <VisibilityOffIcon  sx={{  color: 'orange'}}/>
+                : 
+                  <VisibilityIcon  sx={{  color: 'orange'}}/>
+              }
+              </Box>                                
+            </Box>
             {firebaseError.includes("auth/wrong-password") && <Alert variant="outlined" severity="error" sx={{ py:0, width:"80%"}}>!!Wrong Password!!</Alert>}
             {firebaseError.includes("Verifiy Your Email") && <Alert variant='outlined' severity='error' sx={{py:0, width:"80%"}}>{firebaseError}</Alert>}
             {bokValues.loading ?
