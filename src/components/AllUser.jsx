@@ -2,20 +2,25 @@ import React, { useEffect, useState } from 'react'
 import { Box, Button } from '@mui/material'
 import tapos from '../assets/tapos.png';
 import { getDatabase, ref, onValue } from "firebase/database";
+import { useSelector } from 'react-redux';
 
 const AllUser = () => {
-    const db = getDatabase();
-    let [bokAllUser, setBokAllUser] = useState([]);
-    
-    useEffect(()=>{
-        const hudaiRef = ref(db, 'bokbokUsers/');
-        onValue(hudaiRef, (snapshot) => {
-         let hudaiArray = [];
-         snapshot.forEach(bokitem=>{ hudaiArray.push( {...bokitem.val(), id: bokitem.key} ) })
-         setBokAllUser(hudaiArray);
-        });
-        
-    },[])
+  const db = getDatabase();
+  let [bokAllUser, setBokAllUser] = useState([]);
+  let currentUser = useSelector((state)=> state.storeduser.value);
+  
+  useEffect(()=>{
+    const hudaiRef = ref(db, 'bokbokUsers/');
+    onValue(hudaiRef, (snapshot) => {
+      let hudaiArray = [];
+      snapshot.forEach(bokitem=>{
+        if (currentUser.uid != bokitem.key) {
+          hudaiArray.push({...bokitem.val(), id: bokitem.key})
+        } 
+      })
+      setBokAllUser(hudaiArray);
+    });    
+  },[])
 
 
   return (

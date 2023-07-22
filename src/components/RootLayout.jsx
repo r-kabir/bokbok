@@ -5,10 +5,13 @@ import {Home, Chat, Settings, Notifications} from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
 import tapos from '../assets/tapos.png';
 import SignOut from './SignOut';
+import { useSelector } from 'react-redux';
 
 const RootLayout = () => {
   const location = useLocation();
   // console.log(location.pathname);
+
+  let currentUser = useSelector((state)=> state.storeduser.value);
   return (
     <Box sx={{maxWidth:"95vw", m:"3vh auto"}}>
       <Box sx={{ minHeight:"8vh", borderRadius:"10px", boxShadow:"4", display:'flex',justifyContent:'space-evenly', alignItems:"center"}} >
@@ -19,6 +22,7 @@ const RootLayout = () => {
         <Button color='inherit' variant='contained'><Settings /></Button>
         <SignOut />
         <img className="tapos" src={tapos} />
+        <h5>{currentUser.displayName}</h5>
         {/* </Box> */}
       </Box>
       <Outlet/>
