@@ -10,7 +10,19 @@ const AllUser = () => {
   const auth = getAuth();
   let [bokAllUser, setBokAllUser] = useState([]);
   let [bokFriendRequest, setBokFriendRequest] = useState([]);
+  let [bokFriends, setBokFriends] = useState([]);
   let currentuser = useSelector((state)=> state.storeduser.value);
+
+  useEffect(()=>{
+    const hudaiRef = ref(db, 'bokbokFriendList/');
+    onValue(hudaiRef, (snapshot) => {
+      let hudaiArray = [];
+      snapshot.forEach(bokitem=>{
+        hudaiArray.push(bokitem.val().receiverid + bokitem.val().senderid)
+      })
+      setBokFriends(hudaiArray);
+    });
+  },[]);
 
   useEffect(()=>{
     const hudaiRef = ref(db, 'bokbokFriendRequests/');
@@ -37,7 +49,6 @@ const AllUser = () => {
   },[])
 
   let handleCancelRequest =(bokitem)=>{
-    console.log(bokitem.id);
     remove(ref(db, 'bokbokFriendRequests/' + bokitem.id))
   }
 
@@ -62,6 +73,9 @@ const AllUser = () => {
             <Button onClick={()=>handleCancelRequest(bokitem)} size='small' variant='contained' color='error' sx={{textTransform:'capitalize', fontSize:'11px'}}>Cancel</Button>
             : bokFriendRequest.includes(auth.currentUser.uid + bokitem.id) ?
               <Button size='small' variant='contained' color='inherit' sx={{textTransform:'capitalize', fontSize:'11px'}}>Pending</Button>
+            :
+            bokFriends.includes(auth.currentUser.uid + bokitem.id) || bokFriends.includes(bokitem.id + auth.currentUser.uid) ?
+              <Button size='small' variant='contained' color='inherit' sx={{textTransform:'capitalize', fontSize:'11px'}}>Friends</Button>
             :
             <Button onClick={()=>handleFriendRequest(bokitem)} size='small' variant='contained' color='inherit' sx={{textTransform:'capitalize', fontSize:'11px'}}>Add Friend</Button>
             }
