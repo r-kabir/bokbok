@@ -24,6 +24,10 @@ const FriendList = () => {
     });
   },[]);
 
+  let handleUnfriend = (bokitem)=>{
+    remove(ref(db, 'bokbokFriendList/' + bokitem.id));
+  }
+
   return (
     <Box boxShadow={4} sx={{height:"40vh", overflow:"auto", borderRadius:"10px"}}>
         <Box sx={{p:"15px"}}><h3>Friend List</h3></Box>
@@ -38,8 +42,8 @@ const FriendList = () => {
             }
             <p>ghjgfjfhkgk hkhggkgkk</p>
           </Box>
-          <Button size='small' variant='contained' color='inherit' sx={{textTransform:'capitalize', fontSize:'11px'}}>Remove</Button>
-          <Button size='small' variant='contained' color='error' sx={{textTransform:'capitalize', fontSize:'11px'}}>Block</Button>
+          <Button size='small' variant='contained' color='inherit' sx={{textTransform:'capitalize', fontSize:'11px'}}>Block</Button>
+          <Button onClick={()=>handleUnfriend(bokitem)} size='small' variant='contained' color='error' sx={{textTransform:'capitalize', fontSize:'11px'}}>Unfriend</Button>
       </Box>
         ))}
     </Box>
