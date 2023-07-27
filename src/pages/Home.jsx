@@ -11,11 +11,11 @@ import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
 
-  let currentUser = useSelector((state)=>state.storeduser.value)
+  let currentuser = useSelector((state)=>state.storeduser.value)
   let bokNavigate = useNavigate();
 
   useEffect(()=>{
-    if (currentUser == null){
+    if (currentuser == null){
       bokNavigate("/login");
       
     }

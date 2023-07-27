@@ -11,7 +11,7 @@ const RootLayout = () => {
   const location = useLocation();
   // console.log(location.pathname);
 
-  let currentUser = useSelector((state)=> state.storeduser.value);
+  let currentuser = useSelector((state)=> state.storeduser.value);
   return (
     <Box sx={{maxWidth:"95vw", m:"3vh auto"}}>
       <Box sx={{ minHeight:"8vh", borderRadius:"10px", boxShadow:"4", display:'flex',justifyContent:'space-evenly', alignItems:"center"}} >
@@ -22,7 +22,7 @@ const RootLayout = () => {
         <Button color='inherit' variant='contained'><Settings /></Button>
         <SignOut />
         <img className="tapos" src={tapos} />
-        <h5>{currentUser.displayName}</h5>
+        <h5>{currentuser.displayName}</h5>
         {/* </Box> */}
       </Box>
       <Outlet/>

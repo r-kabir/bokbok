@@ -9,7 +9,8 @@ const FriendRequest = () => {
         <Box sx={{display:"flex", alignItems:"center", justifyContent:"space-between",borderBottom:"1px solid red", p:"10px"}}>
             <img className="tapos" src={tapos} />
             <Box><h4>Tapos Kabir</h4><p>ghjgfjfhkgk hkhggkgkk</p></Box>
-            <Button size='small' variant='contained' color='error'>Accept</Button>
+            <Button size='small' variant='contained' color='inherit' sx={{textTransform:'capitalize', fontSize:'11px'}}>Accept</Button>
+            <Button size='small' variant='contained' color='error' sx={{textTransform:'capitalize', fontSize:'11px'}}>Reject</Button>
         </Box>
     </Box>
   )

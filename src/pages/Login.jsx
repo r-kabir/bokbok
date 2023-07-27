@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import {Button, Box, Stack, Container, Paper, TextField, CircularProgress, Alert} from '@mui/material';
+import {Button, Box, Stack, Paper, TextField, CircularProgress, Alert} from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import image1 from '../assets/image1.jpg';
@@ -107,8 +107,8 @@ const Login = () => {
 
 
   return (
-    <Container maxWidth="md">
-      <Paper elevation={12} sx={{ display:'flex', m:'15vh auto', p:'8px', backgroundColor:'cornsilk'}}>
+    <Box maxWidth="md" sx={{m:'20vh auto'}}>
+      <Paper elevation={12} sx={{ display:'flex', p:'8px', backgroundColor:'cornsilk'}}>
         <Box sx={{ width:"60%", p:"2vh"}}>
           <Box sx={{width:'80%', mx:'auto', pt:"15px"}}>
             <TypoLarge boktitle="Easy Login To Your Account"/>
@@ -148,7 +148,7 @@ const Login = () => {
           <img className="regimage" src={image1} />
         </Box>
       </Paper>
-    </Container>
+    </Box>
   )
 }
 
