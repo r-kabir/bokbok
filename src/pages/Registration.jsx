@@ -102,7 +102,7 @@ const Registration = () => {
             {bokValues.inputError.includes("Full Name") && <Alert variant="outlined" severity="error" sx={{ py:"0"}}>{bokValues.inputError}</Alert>}
             <Box sx={{ display: 'flex', alignItems: 'center'}}>
               <TextField sx={{width:"100%"}} onChange={handleBokBokValues} value ={bokValues.password} name="password" label="Password" type={bokValues.showPass ? 'text' : 'password'} variant="outlined" color='warning' />
-              <Box sx={{mx:"-15%", zIndex:"9999999"}} onClick={()=>setBokValues({...bokValues, showPass:!bokValues.showPass }) }>
+              <Box sx={{mx:"-15%", zIndex:"9998"}} onClick={()=>setBokValues({...bokValues, showPass:!bokValues.showPass }) }>
               {bokValues.showPass ? 
                   <VisibilityOffIcon  sx={{  color: 'orange'}}/>
                 : 
